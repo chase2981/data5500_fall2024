@@ -19,5 +19,5 @@ def sum_numbers_rec(n):
     return n + sum_numbers_rec(n-1) # 5 + 4 + 3 + 2 + 1
     
     
-print(sum_numbers_rec(5))
+print(sum_numbers_rec(100))
 

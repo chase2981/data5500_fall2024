@@ -26,6 +26,9 @@ first_price = float(line)
 # iterate through prices, and run strategy
 buy = 0
 tot_profit = 0
+
+# important
+
 while line:
     prices.append(float(line)) # add one price to the queue
 

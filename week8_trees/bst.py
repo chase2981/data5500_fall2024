@@ -16,114 +16,140 @@ import time
 # Python program to demonstrate delete operation
 # in binary search tree
 
-from print_tree import * # print_tree.py contains a print pretty version of a bst
+from print_tree import *  # print_tree.py contains a print pretty version of a bst
 
 # A Binary Tree Node
 
+
 class Node:
 
-	# Constructor to create a new node
-	def __init__(self, key):
-		self.key = key
-		self.left = None
-		self.right = None
+    # Constructor to create a new node
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
 
 # A utility function to insert a
 # new node with given key in BST
+
+
 def insert(node, key):
 
-	# If the tree is empty, return a new node
-	if node is None:
-		return Node(key)
+    # If the tree is empty, return a new node
+    if node is None:
+        return Node(key)
 
-	# Otherwise recur down the tree
-	if key < node.key:
-		node.left = insert(node.left, key)
-	else:
-		node.right = insert(node.right, key)
+    # Otherwise recur down the tree
+    if key < node.key:
+        node.left = insert(node.left, key)
+    else:
+        node.right = insert(node.right, key)
 
-	# return the (unchanged) node pointer
-	return node
-	
-	
+    # return the (unchanged) node pointer
+    return node
+
+
 # Task 1. Write a function to find the minimum value in the tree
 def findMin(node):
-    pass
+    current = node
+    # loop down to find the leftmost leaf
+    while current.left is not None:
+        current = current.left
+    return current
+
 
 # Task 2. Write a recursive findMinRec function
 def findMinRec(node):
-    pass
-    
+    # Base case: if the node has no left child, it's the minimum
+    if node.left is None:
+        return node
+    # Otherwise, keep going left
+    return findMinRec(node.left)
+
 # Task 3. Write a findMaxRecursive
+
+
 def findMaxRec(node):
-    pass
+    # Base case: if the node has no left child, it's the minimum
+    if node.right is None:
+        return node
+    # Otherwise, keep going left
+    return findMaxRec(node.right)
 
 # print tree inorder
+
+
 def inorder(root):
-	if root is not None:
-		inorder(root.left)
-		print(root.key, end=" ")
-		inorder(root.right)
- 
+    if root is not None:
+        inorder(root.left)
+        print(root.key, end=" ")
+        inorder(root.right)
+
 # Task 4. Write a pre-order print
+def preorder(root):
+    if root is not None:
+        print(root.key, end=" ")
+        preorder(root.left)
+        preorder(root.right)
 
 
 # Task 5. Write a post-order print
+def postorder(root):
+    if root is not None:
+        postorder(root.left)
+        postorder(root.right)
+        print(root.key, end=" ")
 
-		
 # Task 6. write a findKey recursive function
 
 
 # This function deletes the key and returns the new root
 def deleteNode(root, key):
 
-	# Base Case
-	if root is None:
-		return root
+    # Base Case
+    if root is None:
+        return root
 
-	# If the key to be deleted 
-	# is smaller than the root's
-	# key then it lies in left subtree
-	if key < root.key:
-		root.left = deleteNode(root.left, key)
+    # If the key to be deleted
+    # is smaller than the root's
+    # key then it lies in left subtree
+    if key < root.key:
+        root.left = deleteNode(root.left, key)
 
-	# If the kye to be delete 
-	# is greater than the root's key
-	# then it lies in right subtree
-	elif(key > root.key):
-		root.right = deleteNode(root.right, key)
+    # If the kye to be delete
+    # is greater than the root's key
+    # then it lies in right subtree
+    elif (key > root.key):
+        root.right = deleteNode(root.right, key)
 
-	# If key is same as root's key, then this is the node
-	# to be deleted
-	else:
+    # If key is same as root's key, then this is the node
+    # to be deleted
+    else:
 
-		# Node with only one child or no child
-		if root.left is None:
-			temp = root.right
-			root = None
-			return temp
+        # Node with only one child or no child
+        if root.left is None:
+            temp = root.right
+            root = None
+            return temp
 
-		elif root.right is None:
-			temp = root.left
-			root = None
-			return temp
+        elif root.right is None:
+            temp = root.left
+            root = None
+            return temp
 
-		# Node with two children: 
-		# Get the inorder successor
-		# (smallest in the right subtree)
-		temp = findMin(root.right)
+        # Node with two children:
+        # Get the inorder successor
+        # (smallest in the right subtree)
+        temp = findMin(root.right)
 
-		# Copy the inorder successor's 
-		# content to this node
-		root.key = temp.key
+        # Copy the inorder successor's
+        # content to this node
+        root.key = temp.key
 
-		# Delete the inorder successor
-		root.right = deleteNode(root.right, temp.key)
+        # Delete the inorder successor
+        root.right = deleteNode(root.right, temp.key)
 
-	return root
-
-
-
+    return root
 
 
 def main():
@@ -136,40 +162,51 @@ def main():
     root = insert(root, 70)
     root = insert(root, 60)
     root = insert(root, 80)
-    
+    root = insert(root, 19)
+    root = insert(root, 18)
+    root = insert(root, 17)
+    root = insert(root, 16)
+
+    for i in range(10):
+        root = insert(root, random.randint(1, 100))
+
+    print('min', findMin(root).key)
+    print('min_rec', findMinRec(root).key)
+
     # finding values in the tree
     # print(findKey(root, 80))
     # print(findKey(root, 10))
-    
+
     # traversing the tree
     print("Inorder traversal of the given tree")
     inorder(root)
     # PrintTree(root)
-    
+
     ##########################################################
     # Uncomment deleteNode calls after findMin is complete Task 1
-    
-    # # deleting 
+
+    # # deleting
     # print("\nDelete 20")
     # root = deleteNode(root, 20)
     # print("Inorder traversal of the modified tree")
     # inorder(root)
-    
+
     # print("\nDelete 30")
     # root = deleteNode(root, 30)
     # print("Inorder traversal of the modified tree")
     # inorder(root)
-    
+
     # print("\nDelete 50")
     # root = deleteNode(root, 50)
     # print("Inorder traversal of the modified tree")
     # inorder(root)
     #########
-    
+
     print()
     display(root)
-    
-    
+
+    preorder(root)
+
     tree2 = None
     tree2 = insert(tree2, 3)
     tree2 = insert(tree2, 1)
@@ -177,12 +214,11 @@ def main():
     tree2 = insert(tree2, 2)
     tree2 = insert(tree2, 5)
     tree2 = insert(tree2, 9)
-    
+
     inorder(tree2)
     print()
     display(tree2)
-    
-    
+
     ###########################################################
     # Uncomment after preorder and postorder have are complete, Task 4 and Task 5
     # inorder(tree2)
@@ -191,26 +227,24 @@ def main():
     # print()
     # postorder(tree2)
     #########
-    
-    
-    
+
     ############################################################
     # Uncomment after findMin is complete Task 1
-    
+
     # print("\nmin value: ", findMin(tree2).key)
     # print("\nmin value recursive: ", findMinRec(tree2).key)
-   
+
     ######################################################
     ######################################################
     ######################################################
     # The following example shows 10000 searches in a bst are 100 times faster than a list
     # While this may seem to good to be true, notice it takes much longer to build the
     # tree than the list.  They are trade offs.
-    
+
     # create a list of 10000 numbers
     # lst = [random.randint(1,10000) for i in range(1000000)]
     # # each number is a random number between 1 and 10000 random.randint(1,10000)
-    
+
     # # in other loop for in 1 to 10000, check to see if i is in the list
     # start1 = time.time()
     # for i in range(1,10001):
@@ -219,23 +253,20 @@ def main():
     #             break
     # end1 = time.time()
     # print("search time list (sec): ", end1-start1)
-    
-    
-    
+
     # root = None
     # for i in range(1000000):
     #     root = insert(root, random.randint(1,10000))
-        
-    
+
     # start = time.time()
     # for i in range(10000):
     #     findKey(root, i)
     # end = time.time()
-    
+
     # print("search time tree (sec): ",end-start)
-    
+
     # print("---------------------")
     #########
-    
-    
+
+
 main()

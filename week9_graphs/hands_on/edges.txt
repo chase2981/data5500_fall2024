@@ -1,0 +1,16 @@
+TM, LG, 30
+TM, BC, 15
+BC, LG, 30
+BC, OG, 30
+LG, EP, 60
+OG, PC, 30
+OG, SC, 30
+GV, SC, 40
+SC, NP, 39
+SC, CF, 90
+CF, GV, 10
+CF, BV, 90
+BV, CC, 60
+CC, SG, 45
+PC, EP, 60
+PV, NP, 3
